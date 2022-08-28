@@ -2,12 +2,13 @@ import React, { useRef } from 'react';
 import { defaultOptions } from '../Main/helpers';
 
 import './index.scss';
-
+let i = 1;
 const Footer = (props) => {
     const {
         setFile,
         options,
-        setOptions
+        setOptions,
+        file
     } = props;
     const refInput = useRef(null);
 
@@ -24,38 +25,41 @@ const Footer = (props) => {
     };
 
     const onSaveClick = (e) => {
-        const previewImg = document.querySelector("#preview-img");
+        if (file) {
+            const previewImg = document.querySelector("#preview-img");
 
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = previewImg.naturalWidth;
-        canvas.height = previewImg.naturalHeight;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = previewImg.naturalWidth;
+            canvas.height = previewImg.naturalHeight;
 
-        const transform = options.filter(({ name, range }) => (!name && !range));
-        const filters = options.filter(({ name, range }) => (name && range));
+            const transform = options.filter(({ name, range }) => (!name && !range));
+            const filters = options.filter(({ name, range }) => (name && range));
 
-        const brightness = filters.filter(({ property }) => property === 'brightness')[0].value;
-        const saturate = filters.filter(({ property }) => property === 'saturate')[0].value;
-        const contrast = filters.filter(({ property }) => property === 'contrast')[0].value;
-        const grayscale = filters.filter(({ property }) => property === 'grayscale')[0].value;
+            const brightness = filters.filter(({ property }) => property === 'brightness')[0].value;
+            const saturate = filters.filter(({ property }) => property === 'saturate')[0].value;
+            const contrast = filters.filter(({ property }) => property === 'contrast')[0].value;
+            const grayscale = filters.filter(({ property }) => property === 'grayscale')[0].value;
 
-        const rotate = transform.filter(({ property }) => property === 'rotate')[0]?.value;
-        const flipHorizontal = transform.find(({ property }) => property === 'flipHorizontal')[0]?.value;
-        const flipVertical = transform.find(({ property }) => property === 'flipVertical')[0]?.value;
+            const rotate = transform.filter(({ property }) => property === 'rotate')[0]?.value;
+            const flipHorizontal = transform.find(({ property }) => property === 'flipHorizontal')[0]?.value;
+            const flipVertical = transform.find(({ property }) => property === 'flipVertical')[0]?.value;
 
-        ctx.filter = `brightness(${brightness}%) saturate(${saturate}%) contrast(${contrast}%) grayscale(${grayscale}%)`;
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        if (rotate !== 0) {
-            ctx.rotate(rotate * Math.PI / 180);
+            ctx.filter = `brightness(${brightness}%) saturate(${saturate}%) contrast(${contrast}%) grayscale(${grayscale}%)`;
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            if (rotate !== 0) {
+                ctx.rotate(rotate * Math.PI / 180);
+            }
+            ctx.scale(flipHorizontal, flipVertical);
+            ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+
+            const fileNameWithoutExtension = file.name.split('.').shift();
+            const dataURL = canvas.toDataURL();
+            const link = document.createElement("a");
+            link.setAttribute('download', `${fileNameWithoutExtension}(${i++}).png`);
+            link.setAttribute('href', dataURL.replace("image/**", "image/octet-stream"));
+            link.click();
         }
-        ctx.scale(flipHorizontal, flipVertical);
-        ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-
-        const dataURL = canvas.toDataURL();
-        const link = document.createElement("a");
-        link.setAttribute('download', 'CameraPhotoTest.png');
-        link.setAttribute('href', dataURL.replace("image/**", "image/octet-stream"));
-        link.click();
     };
 
     const onResetFilters = () => {
