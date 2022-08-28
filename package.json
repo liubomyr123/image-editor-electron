@@ -1,0 +1,62 @@
+{
+  "name": "image-editor-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "electron/index.js",
+  "author": {
+    "name": "Liubomyr Sliusar",
+    "email": "xxx@gmail.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm:electron\" \"cd react-app && BROWSER=none npm run start\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "build": "cd react-app && npm run build && cd .. && electron-builder",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder",
+    "build2": "electron-builder",
+    "package-mac": "cd react-app && npm run build && cd .. && electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "cd react-app && npm run build && cd .. && electron-packager . crypto-currencies-electron --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-linux": "cd react-app && npm run build && cd .. && electron-packager . crypto-currencies-electron --overwrite --asar --platform=linux --arch=x64 --prune=true --out=release-builds"
+  },
+  "build": {
+    "appId": "crypto-currencies-electron-id",
+    "extends": null,
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "dist/**/*",
+      "react-app/**/*",
+      "node_modules/**/*",
+      "electron/**/*",
+      "package.json", 
+      "LICENSE"
+    ],
+    "mac": {},
+    "win": {
+      "target": "NSIS"
+    },
+    "linux": {
+      "category": "crypto-currencies-electron",
+      "target": [
+        "AppImage"
+      ]
+    },
+    "portable": {
+      "unicode": false,
+      "artifactName": "my_electron_app.exe"
+    }
+  },
+  "keywords": [],
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "electron-is-dev": "^2.0.0",
+    "wait-on": "^6.0.1"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^20.1.0",
+    "electron-builder": "^23.3.3"
+  }
+}
