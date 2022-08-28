@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -14,7 +14,10 @@ const openPhotoWindow = () => {
         width: 600,
         height: 600,
         show: false,
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        webPreferences: {
+            preload: path.join(__dirname, 'takePhotoPreloader.js')
+        }
     });
     camera.loadURL(url.format({
         pathname: path.join(__dirname, './takePhoto.html'),
@@ -30,7 +33,10 @@ function createWindow() {
         minWidth: 600,
         minHeight: 570,
         height: 600,
-        show: false
+        show: false,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
     });
 
     if (isDev) {
@@ -56,7 +62,13 @@ function createWindow() {
     menuBuilder.buildMenu();
 };
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+    createWindow();
+
+    ipcMain.on('set-image', (e, dataURL) => {
+        mainWindow.webContents.send('get-image', dataURL);
+    });
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

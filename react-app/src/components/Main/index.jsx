@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Filters, Preview } from './components';
-import { defaultOptions } from './helpers';
+import { defaultOptions, getImageStyle } from './helpers';
 
 import './index.scss';
 
@@ -25,6 +25,8 @@ const Main = ({ file, setOptions, options }) => {
         });
     };
 
+    const imageStyles = getImageStyle(options);
+
     return (
         <main className="app-main">
             <Filters
@@ -35,7 +37,7 @@ const Main = ({ file, setOptions, options }) => {
                 handleRotateChange={handleRotateChange}
             />
             <Preview
-                options={options}
+                imageStyles={imageStyles}
                 file={file}
             />
         </main>

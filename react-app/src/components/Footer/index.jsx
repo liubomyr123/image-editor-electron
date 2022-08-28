@@ -14,18 +14,18 @@ const Footer = (props) => {
 
     const onInputChange = (e) => {
         if (e.target.files[0]) {
-            setFile(e.target.files[0]);
-        }
+            setFile({ url: URL.createObjectURL((e.target.files[0])), fileObj: e.target.files[0] });
+        };
     };
 
     const onChooseClick = () => {
         if (refInput.current) {
             refInput.current.click();
-        }
+        };
     };
 
     const onSaveClick = (e) => {
-        if (file) {
+        if (file.url) {
             const previewImg = document.querySelector("#preview-img");
 
             const canvas = document.createElement("canvas");
@@ -53,13 +53,14 @@ const Footer = (props) => {
             ctx.scale(flipHorizontal, flipVertical);
             ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
 
-            const fileNameWithoutExtension = file.name.split('.').shift();
+            const nameOfFile = file?.fileObj?.name ? `${file.fileObj.name.split('.').shift()}(${i++}).png` : `newPhoto(${i++})`;
+
             const dataURL = canvas.toDataURL();
             const link = document.createElement("a");
-            link.setAttribute('download', `${fileNameWithoutExtension}(${i++}).png`);
+            link.setAttribute('download', nameOfFile);
             link.setAttribute('href', dataURL.replace("image/**", "image/octet-stream"));
             link.click();
-        }
+        };
     };
 
     const onResetFilters = () => {

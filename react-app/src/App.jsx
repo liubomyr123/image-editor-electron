@@ -4,8 +4,14 @@ import { Footer, Header, Main } from './components';
 import { defaultOptions } from './components/Main/helpers';
 
 function App() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState({ url: require('./assets/png/preview-icon.jpg'), fileObj: undefined });
   const [options, setOptions] = useState(defaultOptions);
+
+  if (window.electronAPI) {
+    window.electronAPI.getImage((e, dataURL) => {
+      setFile({ url: dataURL });
+    });
+  };
 
   return (
     <div className="app">
