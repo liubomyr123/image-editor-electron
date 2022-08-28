@@ -1,23 +1,26 @@
 import React from 'react';
-import { filtersOptions, upperOption } from '../../helpers';
+import {
+    upperOption
+} from '../../helpers';
 
 const FilterOptions = (props) => {
     const {
         activeOption,
+        options,
         onChangeOption
     } = props;
 
     return (
         <div className="filters-options">
-            {filtersOptions.map((option) => {
+            {options.filter(({ name, range }) => (name && range)).map(({ property }) => {
                 return (
                     <button
-                        id={option}
-                        key={option}
-                        className={activeOption === option ? 'active' : ''}
-                        onClick={onChangeOption.bind(this, option)}
+                        id={property}
+                        key={property}
+                        className={activeOption === property ? 'active' : ''}
+                        onClick={onChangeOption.bind(this, property)}
                     >
-                        {upperOption(option)}
+                        {upperOption(property)}
                     </button>
                 )
             })}

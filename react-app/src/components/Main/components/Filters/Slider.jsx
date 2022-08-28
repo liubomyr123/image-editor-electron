@@ -1,17 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
 import { upperOption } from '../../helpers';
 
 const Slider = (props) => {
     const {
-        activeOption
+        activeOption,
+        currentOption,
+        handleSliderChange,
     } = props;
-
-    const [rangeValue, setRangeValue] = useState(0);
-
-    const onChangeRange = (e) => {
-        setRangeValue(e.target.value);
-    };
 
     return (
         <div className="slider">
@@ -20,16 +15,16 @@ const Slider = (props) => {
                     {upperOption(activeOption)}
                 </p>
                 <p className="value">
-                    {`${rangeValue}%`}
+                    {`${currentOption.value}%`}
                 </p>
             </div>
             <div className="filter-range">
                 <input
-                    onChange={onChangeRange}
-                    value={rangeValue}
+                    onChange={handleSliderChange}
+                    value={currentOption.value}
                     type="range"
-                    min="0"
-                    max="200"
+                    min={currentOption.range.min}
+                    max={currentOption.range.max}
                 />
             </div>
         </div>

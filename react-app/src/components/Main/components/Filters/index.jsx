@@ -1,19 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
-import { filtersOptions } from '../../helpers';
-import FilterOptions from './FilterOptions';
 
+import FilterOptions from './FilterOptions';
 import RotateOption from './RotateOption';
 import Slider from './Slider';
 
 import './index.scss';
 
-const Filters = () => {
-    const [activeOption, setActiveOption] = useState(filtersOptions[0]);
+const Filters = (props) => {
+    const {
+        options,
+        activeOption,
+        setActiveOption,
+        handleSliderChange,
+        handleRotateChange
+    } = props;
 
-    const onChangeOption = (option) => {
-        setActiveOption(option);
-    };
+    const currentOption = options.find(({ property }) => property === activeOption);
 
     return (
         <div className='filters-container'>
@@ -23,11 +25,14 @@ const Filters = () => {
                     <label>Filters</label>
                 </div>
                 <FilterOptions
-                    onChangeOption={onChangeOption}
+                    options={options}
+                    onChangeOption={setActiveOption}
                     activeOption={activeOption}
                 />
                 <Slider
+                    currentOption={currentOption}
                     activeOption={activeOption}
+                    handleSliderChange={handleSliderChange}
                 />
             </div>
 
@@ -35,7 +40,10 @@ const Filters = () => {
                 <div className="rotate-title">
                     <label>Rotate & Flip</label>
                 </div>
-                <RotateOption />
+                <RotateOption
+                    handleRotateChange={handleRotateChange}
+                    options={options.filter(({ name, range }) => (!name && !range))}
+                />
             </div>
         </div>
     );

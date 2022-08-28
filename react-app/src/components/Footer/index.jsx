@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
+import { defaultOptions } from '../Main/helpers';
 
 import './index.scss';
 
 const Footer = (props) => {
     const {
         setFile,
-        // file
+        options,
+        setOptions
     } = props;
     const refInput = useRef(null);
 
@@ -29,78 +31,44 @@ const Footer = (props) => {
         canvas.width = previewImg.naturalWidth;
         canvas.height = previewImg.naturalHeight;
 
-        ctx.drawImage(previewImg, 0, 0, canvas.width, canvas.height);
-        
+        const transform = options.filter(({ name, range }) => (!name && !range));
+        const filters = options.filter(({ name, range }) => (name && range));
+
+        const brightness = filters.filter(({ property }) => property === 'brightness')[0].value;
+        const saturate = filters.filter(({ property }) => property === 'saturate')[0].value;
+        const contrast = filters.filter(({ property }) => property === 'contrast')[0].value;
+        const grayscale = filters.filter(({ property }) => property === 'grayscale')[0].value;
+
+        const rotate = transform.filter(({ property }) => property === 'rotate')[0]?.value;
+        const flipHorizontal = transform.find(({ property }) => property === 'flipHorizontal')[0]?.value;
+        const flipVertical = transform.find(({ property }) => property === 'flipVertical')[0]?.value;
+
+        ctx.filter = `brightness(${brightness}%) saturate(${saturate}%) contrast(${contrast}%) grayscale(${grayscale}%)`;
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        if (rotate !== 0) {
+            ctx.rotate(rotate * Math.PI / 180);
+        }
+        ctx.scale(flipHorizontal, flipVertical);
+        ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+
         const dataURL = canvas.toDataURL();
         const link = document.createElement("a");
         link.setAttribute('download', 'CameraPhotoTest.png');
         link.setAttribute('href', dataURL.replace("image/**", "image/octet-stream"));
         link.click();
-
-        // console.log('file====', file);
-        // var link = document.createElement('a');
-        // link.href = file.path;
-        // link.download = 'Download.jpg';
-        // document.body.appendChild(link);
-        // link.click();
-        // const reader = new FileReader();
-
-        // reader.readAsDataURL(file);
-        // reader.onload = (e) => {
-        //     // const canvas = document.createElement("canvas");
-        //     // const image = new Image();
-        //     // image.src = e.target.result;
-        //     // image.onload = (e) => {
-        //     //     const height = e.target.height;
-        //     //     const width = e.target.width;
-        //     //     const canvas = document.createElement("canvas");
-        //     //     const ctx = canvas.getContext("2d");
-        //     //     canvas.width = width;
-        //     //     canvas.height = height;
-
-        //     //     // ctx.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
-        //     //     // ctx.translate(canvas.width / 2, canvas.height / 2);
-        //     //     // if(rotate !== 0) {
-        //     //     //     ctx.rotate(rotate * Math.PI / 180);
-        //     //     // }
-        //     //     // ctx.scale(flipHorizontal, flipVertical);
-        //     //     // ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-
-        //     //     const link = document.createElement("a");
-        //     //     link.download = "image.jpg";
-        //     //     link.href = canvas.toDataURL();
-        //     //     link.click();
-
-        //     //     console.log("Uploaded image has valid Height and Width.", height, width);
-        //     //     return true;
-        //     // };
-        // };
     };
 
-
-    // const canvas = document.createElement("canvas");
-    // const ctx = canvas.getContext("2d");
-    // canvas.width = previewImg.naturalWidth;
-    // canvas.height = previewImg.naturalHeight;
-
-    // ctx.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
-    // ctx.translate(canvas.width / 2, canvas.height / 2);
-    // if(rotate !== 0) {
-    //     ctx.rotate(rotate * Math.PI / 180);
-    // }
-    // ctx.scale(flipHorizontal, flipVertical);
-    // ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-
-    // const link = document.createElement("a");
-    // link.download = "image.jpg";
-    // link.href = canvas.toDataURL();
-    // link.click();
-
+    const onResetFilters = () => {
+        setOptions(defaultOptions);
+    };
 
     return (
         <footer className="app-footer">
             <div className="reset-filter">
-                <div className="button">
+                <div
+                    className="button"
+                    onClick={onResetFilters}
+                >
                     Reset Filters
                 </div>
             </div>
