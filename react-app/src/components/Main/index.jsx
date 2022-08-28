@@ -3,11 +3,13 @@ import { Filters, Preview } from './components';
 
 import './index.scss';
 
-const Main = () => {
+const Main = ({ file }) => {
     return (
         <main className="app-main">
             <Filters />
-            <Preview />
+            <Preview
+                file={file}
+            />
         </main>
     );
 };

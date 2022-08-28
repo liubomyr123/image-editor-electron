@@ -2,10 +2,14 @@ import React from 'react';
 
 import './index.scss';
 
-const Preview = () => {
+const Preview = ({ file }) => {
     return (
         <div className="preview-container">
-            <img src="image-placeholder.svg" alt="preview-img" />
+            <img
+                id="preview-img"
+                src={file ? URL.createObjectURL(file) : require('./../../../../assets/png/preview-icon.jpg')}
+                alt="preview-img"
+            />
         </div>
     );
 };
