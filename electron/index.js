@@ -10,17 +10,21 @@ process.env.NODE_ENV = isDev ? 'development' : 'production';
 let mainWindow;
 // let addWindow;
 
-const createAddWindow = () => {
-    // addWindow = new BrowserWindow({
-    //     width: 200,
-    //     height: 300,
-    //     title: 'Add new photo'
-    // });
-    // addWindow.loadURL('http://localhost:3000');
-    // addWindow.on('closed', () => {
-    //     addWindow = null;
-    // });
+const openPhotoWindow = () => {
+    const camera = new BrowserWindow({
+        width: 600,
+        height: 600,
+        show: false,
+        autoHideMenuBar: true
+    });
+    camera.loadURL(url.format({
+        pathname: path.join(__dirname, './takePhoto.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    camera.once('ready-to-show', () => camera.show());
 };
+
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
@@ -47,7 +51,7 @@ function createWindow() {
         mainWindow.show();
     });
 
-    const menuBuilder = MenuBuilder(mainWindow, app.name, { createAddWindow });
+    const menuBuilder = MenuBuilder(mainWindow, app.name, { openPhotoWindow });
     menuBuilder.buildMenu();
 }
 

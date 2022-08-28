@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.camera {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 2px dotted blueviolet;
+    margin: 0 40px;
+}
+
+
+
+
+
+
+
+.buttons {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.take-photo, 
+.reset-button,
+.ok-button {
+    border: 1px solid blueviolet;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0 10px;
+    background-color: blueviolet;
+}
+
+
+
+
+
+
+
+.result {
+    position: relative;
+}
+
+.result-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.result-photo img {
+    width: 400px;
+    height: auto;
+}
+

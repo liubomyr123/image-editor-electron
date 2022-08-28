@@ -1,7 +1,7 @@
 const { Menu, shell } = require("electron");
 const isMac = process.platform === "darwin";
 
-const MenuBuilder = function (mainWindow, appName, { createAddWindow }) {
+const MenuBuilder = function (mainWindow, appName, { openPhotoWindow }) {
     // https://electronjs.org/docs/api/menu#main-process
     const getTemplate = () => {
         return [
@@ -33,9 +33,9 @@ const MenuBuilder = function (mainWindow, appName, { createAddWindow }) {
                 label: "File",
                 submenu: [
                     {
-                        label: 'Add photo',
+                        label: 'Take photo',
                         click() {
-                            createAddWindow();
+                            openPhotoWindow();
                         }
                     },
                     {
