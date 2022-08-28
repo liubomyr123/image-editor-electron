@@ -8,7 +8,6 @@ const MenuBuilder = require('./menu');
 process.env.NODE_ENV = isDev ? 'development' : 'production';
 
 let mainWindow;
-// let addWindow;
 
 const openPhotoWindow = () => {
     const camera = new BrowserWindow({
@@ -28,6 +27,8 @@ const openPhotoWindow = () => {
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
+        minWidth: 600,
+        minHeight: 400,
         height: 600,
         show: false
     });
@@ -53,7 +54,7 @@ function createWindow() {
 
     const menuBuilder = MenuBuilder(mainWindow, app.name, { openPhotoWindow });
     menuBuilder.buildMenu();
-}
+};
 
 app.on('ready', createWindow);
 
@@ -66,5 +67,5 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
     if (mainWindow === null || BrowserWindow.getAllWindows().length === 0) {
         createWindow();
-    }
+    };
 });

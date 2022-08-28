@@ -1,0 +1,64 @@
+.app-footer {
+
+    display: flex;
+    justify-content: space-between;
+
+    .reset-filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1rem;
+
+        .button {
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            margin-right: 0.5rem;
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-radius: 3px;
+            padding: 10px;
+            cursor: pointer;
+            color: #6C757D;
+            border: 1px solid #6C757D;
+        }
+    }
+
+    .control-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+
+        .control-choose {
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            margin-right: 1rem;
+            display: flex;
+            justify-content: center;
+            background: #6C757D;
+            border-radius: 3px;
+            padding: 10px;
+            cursor: pointer;
+            color: #fff;
+            border: 1px solid #6C757D;
+            white-space: nowrap;
+        }
+
+        .control-save {
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: blue;
+            border-radius: 3px;
+            padding: 10px;
+            cursor: pointer;
+            color: #fff;
+            border: 1px solid #6C757D;
+        }
+    }
+}

@@ -1,0 +1,119 @@
+.filters-container {
+    // background-color: rgb(68, 172, 172);
+    border: 2px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    margin: 0 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+
+    .filters {
+        // border: 1px solid red;
+
+        .filters-title {
+            // border: 1px solid red;
+            padding-bottom: 10px;
+
+            label {
+                // padding-left: 2rem;
+            }
+        }
+
+        .filters-options {
+            // border: 1px solid red;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 0.5rem;
+
+            #brightness,
+            #saturation,
+            #inversion,
+            #grayscale {
+                outline: none;
+                height: 40px;
+                font-size: 14px;
+                color: #6C757D;
+                background: #fff;
+                border-radius: 3px;
+                margin-bottom: 8px;
+                border: 1px solid #aaa;
+                cursor: pointer;
+
+                &.active {
+                    color: #fff;
+                    border-color: #5372F0;
+                    background: #5372F0;
+                }
+            }
+
+        }
+
+        .slider {
+            // border: 1px solid red;
+            margin-top: 1rem;
+            border-top: 2px dotted #ccc;
+
+            .filter-info {
+                // border: 1px solid red;
+                display: flex;
+                justify-content: space-between;
+
+            }
+
+            .filter-range {
+
+                // border: 1px solid red;
+                input {
+                    width: 100%;
+                }
+
+            }
+        }
+    }
+
+    .rotate {
+        // border: 1px solid green;
+        margin-top: 1rem;
+        border-top: 2px dotted #ccc;
+
+        .rotate-title {
+            // border: 1px solid green;
+            margin-top: 1rem;
+            // padding-bottom: 10px;
+
+            label {
+                // padding-left: 2rem;
+            }
+        }
+
+
+        .rotate-options {
+            // border: 1px solid green;
+
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+
+            #left,
+            #right,
+            #horizontal,
+            #vertical {
+                outline: none;
+                font-size: 14px;
+                width: 100%;
+                margin-right: 0.5rem;
+                display: flex;
+                justify-content: center;
+                color: #6C757D;
+                background: #fff;
+                border-radius: 3px;
+                padding: 10px;
+                border: 1px solid #aaa;
+                cursor: pointer;
+            }
+
+        }
+    }
+}

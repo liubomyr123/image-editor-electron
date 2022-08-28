@@ -1,0 +1,15 @@
+.app-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "filters preview";
+
+    .filters-container {
+        grid-area: filters;
+    }
+
+    .preview-container {
+        grid-area: preview;
+    }
+}
