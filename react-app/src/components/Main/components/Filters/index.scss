@@ -1,30 +1,19 @@
 .filters-container {
-    // background-color: rgb(68, 172, 172);
     border: 2px solid #ccc;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     margin: 0 1rem;
     padding: 1rem;
     border-radius: 5px;
 
     .filters {
-        // border: 1px solid red;
-
         .filters-title {
-            // border: 1px solid red;
             padding-bottom: 10px;
-
-            label {
-                // padding-left: 2rem;
-            }
         }
 
         .filters-options {
-            // border: 1px solid red;
             display: grid;
             grid-template-columns: 1fr 1fr;
-
             gap: 0.5rem;
 
             #brightness,
@@ -51,20 +40,16 @@
         }
 
         .slider {
-            // border: 1px solid red;
             margin-top: 1rem;
             border-top: 2px dotted #ccc;
 
             .filter-info {
-                // border: 1px solid red;
                 display: flex;
                 justify-content: space-between;
 
             }
 
             .filter-range {
-
-                // border: 1px solid red;
                 input {
                     width: 100%;
                 }
@@ -74,24 +59,15 @@
     }
 
     .rotate {
-        // border: 1px solid green;
         margin-top: 1rem;
         border-top: 2px dotted #ccc;
 
         .rotate-title {
-            // border: 1px solid green;
             margin-top: 1rem;
-            // padding-bottom: 10px;
-
-            label {
-                // padding-left: 2rem;
-            }
         }
 
 
         .rotate-options {
-            // border: 1px solid green;
-
             display: flex;
             justify-content: space-between;
             margin-top: 1rem;
@@ -115,5 +91,12 @@
             }
 
         }
+    }
+}
+
+
+@media screen and (max-width: 860px) {
+    .filters-container {
+        margin: 1rem 2rem;
     }
 }

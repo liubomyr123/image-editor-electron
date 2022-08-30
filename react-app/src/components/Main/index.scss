@@ -13,3 +13,16 @@
         grid-area: preview;
     }
 }
+
+@media screen and (max-width: 860px) {
+    .app-main {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            "preview"
+            "filters";
+    }
+}
+
+@media screen and (max-width: 500px) {}

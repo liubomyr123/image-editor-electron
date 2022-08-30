@@ -1,5 +1,4 @@
 .app-footer {
-
     display: flex;
     justify-content: space-between;
 
@@ -62,5 +61,12 @@
             white-space: nowrap;
             border: 1px solid #6C757D;
         }
+    }
+}
+
+
+@media screen and (max-width: 860px) {
+    .app-footer {
+        padding: 1rem;
     }
 }

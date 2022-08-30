@@ -1,5 +1,5 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 .app {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
@@ -27,3 +27,12 @@
     grid-area: footer;
   }
 }
+
+
+@media screen and (max-width: 860px) {
+  .app {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {}
