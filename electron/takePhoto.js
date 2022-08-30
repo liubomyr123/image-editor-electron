@@ -5,8 +5,8 @@ const resetButton = document.getElementById('reset-button');
 const okButton = document.getElementById('ok-button');
 
 video.setAttribute('autoplay', '');
-video.style.width = '400px';
-video.style.height = '500px';
+video.style.width = '18rem';
+video.style.height = 'auto';
 let dataURL;
 
 cameraBtn.addEventListener('click', () => {

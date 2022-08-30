@@ -11,8 +11,10 @@ let mainWindow;
 
 const openPhotoWindow = () => {
     const camera = new BrowserWindow({
-        width: 600,
-        height: 600,
+        maxWidth: 600,
+        minWidth: 600,
+        maxHeight: 320,
+        minHeight: 320,
         show: false,
         autoHideMenuBar: true,
         webPreferences: {
