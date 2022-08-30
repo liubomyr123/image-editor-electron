@@ -52,6 +52,7 @@ function createWindow() {
         }));
     };
 
+    mainWindow.setIcon(path.join(__dirname, '../assets/images/png-paint-icon.png'));
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
