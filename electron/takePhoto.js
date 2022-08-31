@@ -27,12 +27,12 @@ cameraBtn.addEventListener('click', () => {
 });
 
 resetButton.addEventListener('click', () => {
-    cameraImg.src = '../assets/images/preview-icon.jpg';
+    cameraImg.src = '../assets/images/preview-icon-bright.png';
 });
 
 
 okButton.addEventListener('click', () => {
-    if (dataURL) {
+    if (!cameraImg.src.split('/').includes('preview-icon-bright.png')) {
         window.electronAPI.sendImage(dataURL);
         window.close();
     }

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -18,6 +18,7 @@ const openPhotoWindow = () => {
         show: false,
         autoHideMenuBar: true,
         webPreferences: {
+            devTools: process.env.NODE_ENV === 'development',
             preload: path.join(__dirname, 'takePhotoPreloader.js')
         }
     });
@@ -37,13 +38,14 @@ function createWindow() {
         height: 600,
         show: false,
         webPreferences: {
+            devTools: process.env.NODE_ENV === 'development',
             preload: path.join(__dirname, 'preload.js')
         }
     });
 
     if (isDev) {
         mainWindow.loadURL('http://localhost:3000');
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
     } else {
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, '../react-app/build/index.html'),
@@ -51,6 +53,14 @@ function createWindow() {
             slashes: true
         }));
     };
+
+    // Open add photo modal
+    globalShortcut.register('CommandOrControl+A', () => {
+        openPhotoWindow();
+    });
+
+    // Check whether a shortcut is registered.
+    // globalShortcut.isRegistered('CommandOrControl+A')
 
     mainWindow.setIcon(path.join(__dirname, '../assets/images/png-paint-icon.png'));
     mainWindow.on('closed', () => {

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { defaultOptions } from '../Main/helpers';
 
 import './index.scss';
+
 let i = 1;
 const Footer = (props) => {
     const {
@@ -10,11 +11,15 @@ const Footer = (props) => {
         setOptions,
         file
     } = props;
+
     const refInput = useRef(null);
 
     const onInputChange = (e) => {
         if (e.target.files[0]) {
-            setFile({ url: URL.createObjectURL((e.target.files[0])), fileObj: e.target.files[0] });
+            setFile({
+                url: URL.createObjectURL((e.target.files[0])),
+                fileObj: e.target.files[0]
+            });
         };
     };
 
@@ -63,8 +68,12 @@ const Footer = (props) => {
         };
     };
 
-    const onResetFilters = () => {
-        setOptions(defaultOptions);
+    const onResetFilters = () => setOptions(defaultOptions);
+
+    const removePreviewPhoto = () => {
+        if (file.url !== '/static/media/preview-icon-bright.03494f5c52e93e3540b1.png') {
+            setFile({ url: require('../../assets/png/preview-icon-bright.png'), fileObj: undefined })
+        }
     };
 
     return (
@@ -83,10 +92,16 @@ const Footer = (props) => {
                     ref={refInput}
                     type="file"
                     className="file-input"
-                    accept="image/*"
+                    accept="image/*, .png, .jpg, .jpeg"
                     hidden
                     multiple={false}
                 />
+                <div
+                    className="control-remove"
+                    onClick={removePreviewPhoto}
+                >
+                    Remove Image
+                </div>
                 <div
                     className="control-choose"
                     onClick={onChooseClick}

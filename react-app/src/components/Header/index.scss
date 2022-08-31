@@ -5,6 +5,23 @@
     align-items: center;
     padding: 0px 1rem;
     font-size: 20px;
+
+    .remove-preview {
+        position: absolute;
+        background-color: blue;
+        padding: 0 6px;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1;
+
+        &:hover {
+            background-color: #6C757D;
+        }
+    }
+
 }
 
 @media screen and (max-width: 860px) {
