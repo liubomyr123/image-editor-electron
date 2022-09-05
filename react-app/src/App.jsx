@@ -14,7 +14,7 @@ const App = () => {
           file: {
             fileUrl: dataURL,
             fileObj: {},
-            isDefault: true
+            isDefault: false
           }
         }
       ));

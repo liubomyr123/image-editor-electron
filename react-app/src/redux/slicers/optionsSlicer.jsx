@@ -104,16 +104,20 @@ export const defaultOptions = [
         value: 0,
         range: {
             min: 0,
-            max: 20
+            max: 100
         },
         active: false,
         unit: 'px'
     },
+    // TODO: add reset filter for each filter
+    // TODO: add change size of photo
+    // TODO: add gradient
+    // TODO: change extensions
     // {
     //     type: 'filters',
     //     name: 'Drop Shadow',
     //     property: 'drop-shadow',
-    //     //    ??
+    //     // TODO  ??
     // },
     {
         type: 'rotateFlip',

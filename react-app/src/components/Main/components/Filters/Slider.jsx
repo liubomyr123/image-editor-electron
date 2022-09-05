@@ -11,7 +11,8 @@ const Slider = (props) => {
         value,
         property,
         range,
-        name
+        name,
+        unit
     } = activeFilter;
 
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Slider = (props) => {
                     {name}
                 </p>
                 <p className="value">
-                    {`${value}%`}
+                    {`${value}${unit}`}
                 </p>
             </div>
             <div className="filter-range">
