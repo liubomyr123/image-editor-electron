@@ -109,6 +109,12 @@ export const defaultOptions = [
         active: false,
         unit: 'px'
     },
+    // {
+    //     type: 'filters',
+    //     name: 'Drop Shadow',
+    //     property: 'drop-shadow',
+    //     //    ??
+    // },
     {
         type: 'rotateFlip',
         property: 'rotate',
