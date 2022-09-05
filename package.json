@@ -31,7 +31,7 @@
       "react-app/**/*",
       "node_modules/**/*",
       "electron/**/*",
-      "package.json", 
+      "package.json",
       "LICENSE"
     ],
     "mac": {},
@@ -57,6 +57,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "electron-devtools-installer": "^3.2.0",
     "electron": "^20.1.0",
     "electron-builder": "^23.3.3"
   }

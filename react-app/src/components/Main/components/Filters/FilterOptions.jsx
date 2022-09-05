@@ -1,26 +1,33 @@
 import React from 'react';
-import {
-    upperOption
-} from '../../helpers';
+import { useDispatch } from 'react-redux';
+import { setActiveFilter } from '../../../../redux/slicers/optionsSlicer';
 
 const FilterOptions = (props) => {
     const {
-        activeOption,
-        options,
-        onChangeOption
+        filters,
+        activeFilter
     } = props;
+
+    const dispatch = useDispatch();
+
+    const {
+        active,
+        property: activeProperty
+    } = activeFilter;
+
+    const setActiveOption = (filterName) => dispatch(setActiveFilter({ filterName }));
 
     return (
         <div className="filters-options">
-            {options.filter(({ name, range }) => (name && range)).map(({ property }) => {
+            {filters.map(({ property, name }) => {
                 return (
                     <button
                         id={property}
                         key={property}
-                        className={activeOption === property ? 'active' : ''}
-                        onClick={onChangeOption.bind(this, property)}
+                        className={(activeProperty === property) && (active) ? 'active' : ''}
+                        onClick={setActiveOption.bind(this, property)}
                     >
-                        {upperOption(property)}
+                        {name}
                     </button>
                 )
             })}

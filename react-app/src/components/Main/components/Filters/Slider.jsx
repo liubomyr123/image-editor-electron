@@ -1,30 +1,41 @@
 import React from 'react';
-import { upperOption } from '../../helpers';
+import { useDispatch } from 'react-redux';
+import { updateFilters } from '../../../../redux/slicers/optionsSlicer';
 
 const Slider = (props) => {
     const {
-        activeOption,
-        currentOption,
-        handleSliderChange,
+        activeFilter
     } = props;
+
+    const {
+        value,
+        property,
+        range,
+        name
+    } = activeFilter;
+
+    const dispatch = useDispatch();
+
+    const handleSliderChange = ({ target }) => dispatch(updateFilters({ filterName: target.name, value: target.value }));
 
     return (
         <div className="slider">
             <div className="filter-info">
                 <p className="name">
-                    {upperOption(activeOption)}
+                    {name}
                 </p>
                 <p className="value">
-                    {`${currentOption.value}%`}
+                    {`${value}%`}
                 </p>
             </div>
             <div className="filter-range">
                 <input
                     onChange={handleSliderChange}
-                    value={currentOption.value}
+                    name={property}
+                    value={value}
+                    min={range.min}
+                    max={range.max}
                     type="range"
-                    min={currentOption.range.min}
-                    max={currentOption.range.max}
                 />
             </div>
         </div>

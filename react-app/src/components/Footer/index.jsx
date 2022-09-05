@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { defaultOptions } from '../Main/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { optionsSelector } from '../../redux/selectors';
+import { resetFilters } from '../../redux/slicers/optionsSlicer';
 
 import './index.scss';
 
@@ -7,12 +9,12 @@ let i = 1;
 const Footer = (props) => {
     const {
         setFile,
-        options,
-        setOptions,
         file
     } = props;
 
+    const dispatch = useDispatch();
     const refInput = useRef(null);
+    const options = useSelector(optionsSelector);
 
     const onInputChange = (e) => {
         if (e.target.files[0]) {
@@ -45,12 +47,13 @@ const Footer = (props) => {
             const saturate = filters.filter(({ property }) => property === 'saturate')[0].value;
             const contrast = filters.filter(({ property }) => property === 'contrast')[0].value;
             const grayscale = filters.filter(({ property }) => property === 'grayscale')[0].value;
+            // const opacity = filters.filter(({ property }) => property === 'opacity')[0].value;
 
             const rotate = transform.filter(({ property }) => property === 'rotate')[0]?.value;
             const flipHorizontal = transform.find(({ property }) => property === 'flipHorizontal')[0]?.value;
             const flipVertical = transform.find(({ property }) => property === 'flipVertical')[0]?.value;
 
-            ctx.filter = `brightness(${brightness}%) saturate(${saturate}%) contrast(${contrast}%) grayscale(${grayscale}%)`;
+            ctx.filter = `brightness(${brightness}%) saturate(${saturate}%) contrast(${contrast}%) grayscale(${grayscale}%) opacity(${30}%)`;
             ctx.translate(canvas.width / 2, canvas.height / 2);
             if (rotate !== 0) {
                 ctx.rotate(rotate * Math.PI / 180);
@@ -68,7 +71,7 @@ const Footer = (props) => {
         };
     };
 
-    const onResetFilters = () => setOptions(defaultOptions);
+    const onResetFilters = () => dispatch(resetFilters());
 
     const removePreviewPhoto = () => {
         if (file.url !== '/static/media/preview-icon-bright.03494f5c52e93e3540b1.png') {

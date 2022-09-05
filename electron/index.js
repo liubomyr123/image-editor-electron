@@ -2,7 +2,11 @@ const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
-
+const {
+    default: installExtension,
+    REDUX_DEVTOOLS,
+    REACT_DEVELOPER_TOOLS
+} = require("electron-devtools-installer");
 const MenuBuilder = require('./menu');
 
 process.env.NODE_ENV = isDev ? 'development' : 'production';
@@ -45,6 +49,14 @@ function createWindow() {
 
     if (isDev) {
         mainWindow.loadURL('http://localhost:3000');
+        mainWindow.webContents.once("dom-ready", async () => {
+            await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+                .then((name) => console.log(`Added Extension:  ${name}`))
+                .catch((err) => console.log("An error occurred: ", err))
+                .finally(() => {
+                    mainWindow.webContents.openDevTools();
+                });
+        });
         // mainWindow.webContents.openDevTools();
     } else {
         mainWindow.loadURL(url.format({

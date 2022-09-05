@@ -1,21 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import FilterOptions from './FilterOptions';
 import RotateOption from './RotateOption';
 import Slider from './Slider';
+import { optionsSelector } from '../../../../redux/selectors';
 
 import './index.scss';
 
-const Filters = (props) => {
-    const {
-        options,
-        activeOption,
-        setActiveOption,
-        handleSliderChange,
-        handleRotateChange
-    } = props;
+const Filters = () => {
+    const options = useSelector(optionsSelector);
 
-    const currentOption = options.find(({ property }) => property === activeOption);
+    const filters = options.filter(({ type }) => type === 'filters');
+    const activeFilter = filters.find(({ active }) => active);
+
+    const rotateFlips = options.filter(({ type }) => type === 'rotateFlip');
 
     return (
         <div className='filters-container'>
@@ -25,14 +24,11 @@ const Filters = (props) => {
                     <label>Filters</label>
                 </div>
                 <FilterOptions
-                    options={options}
-                    onChangeOption={setActiveOption}
-                    activeOption={activeOption}
+                    filters={filters}
+                    activeFilter={activeFilter}
                 />
                 <Slider
-                    currentOption={currentOption}
-                    activeOption={activeOption}
-                    handleSliderChange={handleSliderChange}
+                    activeFilter={activeFilter}
                 />
             </div>
 
@@ -41,8 +37,7 @@ const Filters = (props) => {
                     <label>Rotate & Flip</label>
                 </div>
                 <RotateOption
-                    handleRotateChange={handleRotateChange}
-                    options={options.filter(({ name, range }) => (!name && !range))}
+                    rotateFlips={rotateFlips}
                 />
             </div>
         </div>
