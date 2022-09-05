@@ -140,8 +140,6 @@ const optionsSlicer = createSlice({
         updateFilters(state, action) {
             const { filterName, value } = action.payload;
 
-            console.log('filterName====', filterName, value);
-
             state.options = state.options.map((filter) => {
                 if (filterName === filter.property) {
                     return (
@@ -153,7 +151,6 @@ const optionsSlicer = createSlice({
                 };
                 return filter;
             });
-            // state.theme = 'dark';
         },
 
         setActiveFilter(state, action) {
@@ -175,9 +172,6 @@ const optionsSlicer = createSlice({
             });
 
         },
-        toggleSideBar(state) {
-            // state.isOpenSideBar = !state.isOpenSideBar;
-        }
     }
 })
 
@@ -185,7 +179,6 @@ export const {
     resetFilters,
     updateFilters,
     setActiveFilter,
-    // toggleTheme,
 } = optionsSlicer.actions
 
 export default optionsSlicer.reducer

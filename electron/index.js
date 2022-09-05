@@ -57,7 +57,6 @@ function createWindow() {
                     mainWindow.webContents.openDevTools();
                 });
         });
-        // mainWindow.webContents.openDevTools();
     } else {
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, '../react-app/build/index.html'),

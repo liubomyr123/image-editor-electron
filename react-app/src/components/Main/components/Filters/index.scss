@@ -15,8 +15,15 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
+            height: 155px;
+            overflow-y: scroll;
 
             #brightness,
+            #opacity,
+            #invert,
+            #sepia,
+            #hue-rotate,
+            #blur,
             #saturate,
             #contrast,
             #grayscale {
@@ -74,8 +81,8 @@
 
             #left,
             #right,
-            #horizontal,
-            #vertical {
+            #flipHorizontal,
+            #flipVertical {
                 outline: none;
                 font-size: 14px;
                 width: 100%;

@@ -1,28 +1,33 @@
-import { useState } from 'react';
-import './App.scss';
+import { useDispatch } from 'react-redux';
 import { Footer, Header, Main } from './components';
+import { updateFile } from './redux/slicers/fileSlicer';
 
-function App() {
-  const [file, setFile] = useState({ url: require('./assets/png/preview-icon-bright.png'), fileObj: undefined });
+import './App.scss';
+
+const App = () => {
+  const dispatch = useDispatch();
 
   if (window.electronAPI) {
     window.electronAPI.getImage((e, dataURL) => {
-      setFile({ url: dataURL });
+      dispatch(updateFile(
+        {
+          file: {
+            fileUrl: dataURL,
+            fileObj: {},
+            isDefault: true
+          }
+        }
+      ));
     });
   };
 
   return (
     <div className="app">
       <Header />
-      <Main
-        file={file}
-      />
-      <Footer
-        setFile={setFile}
-        file={file}
-      />
+      <Main />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;

@@ -2,10 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import {
     optionsSlicer,
+    fileSlicer
 } from './slicers';
 
 const rootReducer = combineReducers({
-    options: optionsSlicer
+    options: optionsSlicer,
+    file: fileSlicer
 });
 
 const store = configureStore({
