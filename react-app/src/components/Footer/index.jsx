@@ -1,18 +1,18 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { transformationWithCanvas } from '../../helpers';
 import { fileSelector, optionsSelector } from '../../redux/selectors';
 import { defaultFileState, updateFile } from '../../redux/slicers/fileSlicer';
 import { resetFilters } from '../../redux/slicers/optionsSlicer';
 
 import './index.scss';
 
-const Footer = () => {
+const Footer = ({ canvasRef }) => {
     const dispatch = useDispatch();
 
     const file = useSelector(fileSelector);
     const options = useSelector(optionsSelector);
+    console.log('options====', options);
     const refInput = useRef(null);
 
     const onInputChange = (e) => {
@@ -44,11 +44,10 @@ const Footer = () => {
     };
 
     const onSaveClick = (e) => {
+        console.log('flipHorizontal====');
         if (file.fileUrl === '/static/media/preview-icon-bright.03494f5c52e93e3540b1.png') return;
-        if (file.fileUrl) {
-            const previewImg = document.querySelector("#preview-img");
-            const dataURL = transformationWithCanvas(previewImg, options);
-
+        if (file.fileUrl && canvasRef?.current) {
+            const dataURL = canvasRef.current.toDataURL();
             const nameOfFile = file?.fileObj?.name ? `${file.fileObj.name.split('.').shift()}.png` : `newPhoto`;
 
             const link = document.createElement("a");

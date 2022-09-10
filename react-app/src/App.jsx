@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Footer, Header, Main } from './components';
 import { updateFile } from './redux/slicers/fileSlicer';
@@ -5,6 +6,7 @@ import { updateFile } from './redux/slicers/fileSlicer';
 import './App.scss';
 
 const App = () => {
+  const canvasRef = useRef(null);
   const dispatch = useDispatch();
 
   if (window.electronAPI) {
@@ -24,8 +26,12 @@ const App = () => {
   return (
     <div className="app">
       <Header />
-      <Main />
-      <Footer />
+      <Main
+        canvasRef={canvasRef}
+      />
+      <Footer
+        canvasRef={canvasRef}
+      />
     </div>
   );
 };

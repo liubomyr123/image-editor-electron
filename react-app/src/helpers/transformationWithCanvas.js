@@ -9,9 +9,9 @@ export const transformationWithCanvas = (previewImg, options) => {
 
     const filtersResult = filters.map((option) => `${option.property}(${option.value}${option.unit})`).join(' ');
 
-    const rotate = rotateFlips.filter(({ property }) => property === 'rotate')[0]?.value;
-    const flipHorizontal = rotateFlips.find(({ property }) => property === 'flipHorizontal')[0]?.value;
-    const flipVertical = rotateFlips.find(({ property }) => property === 'flipVertical')[0]?.value;
+    const rotate = rotateFlips.find(({ property }) => property === 'rotate')?.value;
+    const flipHorizontal = rotateFlips.find(({ property }) => property === 'flipHorizontal')?.value;
+    const flipVertical = rotateFlips.find(({ property }) => property === 'flipVertical')?.value;
 
     ctx.filter = filtersResult;
 
