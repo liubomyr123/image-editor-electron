@@ -41,17 +41,35 @@ const Preview = ({ canvasRef }) => {
 
             ctx.scale(flipHorizontal, flipVertical);
 
+            const is90Degrees = rotate % 360 === 90 && rotate === 90;
+            const isRightRotate = [90, -90].includes(rotate % 360);
+
             if ([90, -90, 270, -270].includes(rotate % 360)) {
                 canvas.height = image.naturalWidth;
                 canvas.width = image.naturalHeight;
 
                 if (rotate > 0) {
-                    ctx.rotate(rotate * Math.PI / 180);
+                    if (is90Degrees) {
+                        ctx.rotate(-rotate * Math.PI / 180);
+                    } else {
+                        ctx.rotate(rotate * Math.PI / 180);
+                    }
                 } else {
                     ctx.rotate(-rotate * Math.PI / 180);
                 }
 
-                if ([90, -90].includes(rotate % 360)) { // right
+                if (isRightRotate) { // right
+                    console.log('right====');
+
+                    if (is90Degrees) {
+                        ctx.drawImage(
+                            image,
+                            (-canvas.width * ratio),
+                            (-canvas.height / 1000),
+                            canvas.height,
+                            canvas.width,
+                        );
+                    }
 
                     ctx.drawImage(
                         image,
@@ -61,14 +79,6 @@ const Preview = ({ canvasRef }) => {
                         canvas.width,
                     );
                 } else { // left
-
-                    // ctx.drawImage(
-                    //     image,
-                    //     (-canvas.height / 2),
-                    //     (-canvas.width / 4),
-                    //     canvas.height,
-                    //     canvas.width / 2,
-                    // );
 
                     ctx.drawImage(
                         image,

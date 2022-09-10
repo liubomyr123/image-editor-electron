@@ -12,7 +12,7 @@ const Footer = ({ canvasRef }) => {
 
     const file = useSelector(fileSelector);
     const options = useSelector(optionsSelector);
-    console.log('options====', options);
+    // console.log('options====', options);
     const refInput = useRef(null);
 
     const onInputChange = (e) => {
