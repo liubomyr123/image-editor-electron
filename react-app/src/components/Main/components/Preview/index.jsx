@@ -28,12 +28,11 @@ const Preview = ({ canvasRef }) => {
             const rotateFlips = options.filter(({ type }) => type === 'rotateFlip');
             const filters = options.filter(({ type }) => type === 'filters');
             const filtersResult = filters.map((option) => `${option.property}(${option.value}${option.unit})`).join(' ');
+            console.log('filtersResult====', filtersResult);
 
             const rotate = rotateFlips.find(({ property }) => property === 'rotate')?.value;
             const flipHorizontal = rotateFlips.find(({ property }) => property === 'flipHorizontal')?.value;
             const flipVertical = rotateFlips.find(({ property }) => property === 'flipVertical')?.value;
-
-            ctx.filter = filtersResult;
 
             ctx.translate(canvas.width / 2, canvas.height / 2);
 
@@ -62,6 +61,8 @@ const Preview = ({ canvasRef }) => {
                     console.log('right====');
 
                     if (is90Degrees) {
+                        ctx.filter = filtersResult;
+
                         ctx.drawImage(
                             image,
                             (-canvas.width * ratio),
@@ -70,6 +71,7 @@ const Preview = ({ canvasRef }) => {
                             canvas.width,
                         );
                     }
+                    ctx.filter = filtersResult;
 
                     ctx.drawImage(
                         image,
@@ -79,6 +81,7 @@ const Preview = ({ canvasRef }) => {
                         canvas.width,
                     );
                 } else { // left
+                    ctx.filter = filtersResult;
 
                     ctx.drawImage(
                         image,

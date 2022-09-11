@@ -4,7 +4,7 @@ import { Footer, Header, Main } from './components';
 import { updateFile } from './redux/slicers/fileSlicer';
 
 import './App.scss';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 const App = () => {
   const canvasRef = useRef(null);
