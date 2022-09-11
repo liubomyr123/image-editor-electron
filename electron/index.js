@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut, webFrame } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -10,6 +10,60 @@ const {
 const MenuBuilder = require('./menu');
 
 process.env.NODE_ENV = isDev ? 'development' : 'production';
+
+
+// let prevZoomLevel = webFrame.getZoomLevel();
+
+// const onResize = () => {
+//     const newZoomLevel = webFrame.getZoomLevel();
+//     if (newZoomLevel !== prevZoomLevel) {
+//         // Do your thing
+//     }
+//     prevZoomLevel = newZoomLevel;
+// };
+
+// mainWindow.addEventListener('resize', onResize);
+
+// let win = BrowserWindow.getFocusedWindow();
+
+// // let win = BrowserWindow.getAllWindows()[0];
+
+// // If reduced below Minimum value
+// // Error - 'zoomFactor' must be a double greater than 0.0
+// win.webContents.setZoomFactor(1.0);
+
+// // Upper Limit is working of 500 %
+// win.webContents
+//     .setVisualZoomLevelLimits(1, 5)
+//     .then(console.log("Zoom Levels Have been Set between 100% and 500%"))
+//     .catch((err) => console.log(err));
+
+// win.webContents.on("zoom-changed", (event, zoomDirection) => {
+//     console.log(zoomDirection);
+//     var currentZoom = win.webContents.getZoomFactor();
+//     console.log("Current Zoom Factor - ", currentZoom);
+//     // console.log('Current Zoom Level at - '
+//     // , win.webContents.getZoomLevel());
+//     console.log("Current Zoom Level at - ", win.webContents.zoomLevel);
+
+//     if (zoomDirection === "in") {
+
+//         // win.webContents.setZoomFactor(currentZoom + 0.20);
+//         win.webContents.zoomFactor = currentZoom + 0.2;
+
+//         console.log("Zoom Factor Increased to - "
+//             , win.webContents.zoomFactor * 100, "%");
+//     }
+//     if (zoomDirection === "out") {
+
+//         // win.webContents.setZoomFactor(currentZoom - 0.20);
+//         win.webContents.zoomFactor = currentZoom - 0.2;
+
+//         console.log("Zoom Factor Decreased to - "
+//             , win.webContents.zoomFactor * 100, "%");
+//     }
+// });
+
 
 let mainWindow;
 
@@ -40,10 +94,14 @@ function createWindow() {
         minWidth: 600,
         minHeight: 570,
         height: 600,
+        useContentSize: true,
         show: false,
         webPreferences: {
+            nodeIntegration: true,
             devTools: process.env.NODE_ENV === 'development',
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            // webSecurity: false,
+            zoomFactor: 3
         }
     });
 
@@ -74,6 +132,7 @@ function createWindow() {
     // globalShortcut.isRegistered('CommandOrControl+A')
 
     mainWindow.setIcon(path.join(__dirname, '../assets/images/png-paint-icon.png'));
+
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
@@ -82,15 +141,41 @@ function createWindow() {
         mainWindow.show();
     });
 
+    // console.log('webFrame====', webFrame);
+    // webFrame.setZoomFactor(2)
+    // mainWindow.webContents.setZoomFactor(4);
+    // mainWindow.webContents.setZoomFactor(3.0);
+    // mainWindow.webContents.on('resize', (e) => {
+    //     console.log('===================', e);
+    // });
+
+    // mainWindow.webContents.on('wheel', zoom, { passive: false });
+
+    // mainWindow.webContents.on('zoom-changed', (e) => {
+
+    //     console.log('=================', e);
+    //     const factor = e.sender.getZoomLevel();
+    //     console.log('====', factor);
+    //     // mainWindow.webContents.setZoomFactor(1);
+    // });
     const menuBuilder = MenuBuilder(mainWindow, app.name, { openPhotoWindow });
     menuBuilder.buildMenu();
 };
+
+// function zoom (e) {
+//     console.log('event.deltaY====', e.deltaY);
+// }
 
 app.on('ready', () => {
     createWindow();
 
     ipcMain.on('set-image', (e, dataURL) => {
         mainWindow.webContents.send('get-image', dataURL);
+    });
+
+    ipcMain.on('set-zoom', (e, deltaY) => {
+        mainWindow.webContents.setZoomFactor(1);
+        console.log('deltaY====', deltaY);
     });
 });
 

@@ -9,6 +9,27 @@ const App = () => {
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
 
+  // document.addEventListener('keydown', (event) => {
+  //   console.log('event====', event.key);
+  // });
+
+  const zoom = (e) => {
+    if (window.electronAPI) {
+
+      window.electronAPI.setZoom(e.deltaY);
+    };
+  };
+
+  document.addEventListener('keydown', (event) => {
+    // console.log('event====', event);
+    if (event.ctrlKey) {
+      console.log('e====', window?.electronAPI);
+    }
+  });
+
+  document.addEventListener('wheel', zoom, { passive: false });
+
+
   if (window.electronAPI) {
     window.electronAPI.getImage((e, dataURL) => {
       dispatch(updateFile(
