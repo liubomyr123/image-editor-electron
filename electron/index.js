@@ -101,7 +101,7 @@ function createWindow() {
             devTools: process.env.NODE_ENV === 'development',
             preload: path.join(__dirname, 'preload.js'),
             // webSecurity: false,
-            zoomFactor: 3
+            // zoomFactor: 1
         }
     });
 
