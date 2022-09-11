@@ -174,8 +174,11 @@ app.on('ready', () => {
     });
 
     ipcMain.on('set-zoom', (e, deltaY) => {
-        mainWindow.webContents.setZoomFactor(1);
-        console.log('deltaY====', deltaY);
+        mainWindow.webContents.setZoomFactor(deltaY);
+        // const zoomFactor = mainWindow.webContents.getZoomFactor();
+        // console.log('mainWindow.webContents====', mainWindow.webContents.getZoomFactor());
+        // console.log('deltaY====', deltaY);
+        // mainWindow.webContents.send('get-zoom', zoomFactor);
     });
 });
 
